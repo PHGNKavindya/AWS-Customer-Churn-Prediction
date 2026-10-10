@@ -218,3 +218,15 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# Project datasets and generated outputs
+data/raw/*.csv
+data/processed/*.csv
+data/output/*.csv
+
+# Python virtual environment
+.venv/
+
+# Jupyter temporary files
+.ipynb_checkpoints/
