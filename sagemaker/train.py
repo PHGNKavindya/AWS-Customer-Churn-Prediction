@@ -33,9 +33,6 @@ def main():
 
     args = parser.parse_args()
 
-    # ---------------------------------------------------------
-    # Load training data
-    # ---------------------------------------------------------
     train_file = os.path.join(
         args.train,
         "customer_churn_cleaned.csv"
@@ -52,9 +49,6 @@ def main():
 
     print("Dataset shape:", df.shape)
 
-    # ---------------------------------------------------------
-    # Prepare features and target
-    # ---------------------------------------------------------
     target = "Churn"
 
     if target not in df.columns:
@@ -98,9 +92,6 @@ def main():
         len(categorical_features)
     )
 
-    # ---------------------------------------------------------
-    # Train/test split
-    # ---------------------------------------------------------
     X_train, X_test, y_train, y_test = train_test_split(
         X,
         y,
@@ -112,9 +103,6 @@ def main():
     print("Training rows:", len(X_train))
     print("Testing rows:", len(X_test))
 
-    # ---------------------------------------------------------
-    # Preprocessing
-    # ---------------------------------------------------------
     preprocessor = ColumnTransformer(
         transformers=[
             (
@@ -132,9 +120,6 @@ def main():
         ]
     )
 
-    # ---------------------------------------------------------
-    # Final Gradient Boosting model
-    # ---------------------------------------------------------
     model = Pipeline(
         steps=[
             (
@@ -153,9 +138,6 @@ def main():
         ]
     )
 
-    # ---------------------------------------------------------
-    # Train
-    # ---------------------------------------------------------
     print("Training Gradient Boosting model...")
 
     model.fit(
@@ -165,9 +147,6 @@ def main():
 
     print("Training completed.")
 
-    # ---------------------------------------------------------
-    # Basic local evaluation
-    # ---------------------------------------------------------
     accuracy = model.score(
         X_test,
         y_test
@@ -178,9 +157,6 @@ def main():
         round(accuracy, 4)
     )
 
-    # ---------------------------------------------------------
-    # Save model artifacts
-    # ---------------------------------------------------------
     os.makedirs(
         args.model_dir,
         exist_ok=True
@@ -195,8 +171,6 @@ def main():
         model,
         model_path
     )
-
-    # Selected from the original model evaluation notebook
     selected_threshold = 0.322712
 
     threshold_path = os.path.join(

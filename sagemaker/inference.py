@@ -45,11 +45,9 @@ def input_fn(request_body, request_content_type):
             request_body
         )
 
-        # Support one customer as a dictionary
         if isinstance(data, dict):
             data = [data]
 
-        # Support multiple customers as a list
         if not isinstance(data, list):
             raise ValueError(
                 "JSON input must be an object or a list of objects."
@@ -114,10 +112,6 @@ def output_fn(prediction, response_content_type):
         f"Unsupported response type: {response_content_type}"
     )
 
-
-# ---------------------------------------------------------
-# Optional local test
-# ---------------------------------------------------------
 if __name__ == "__main__":
 
     local_model_dir = os.path.join(
